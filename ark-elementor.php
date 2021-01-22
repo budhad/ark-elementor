@@ -12,6 +12,7 @@
 */
 
 // this test git
+// this test branch
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
