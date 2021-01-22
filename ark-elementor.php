@@ -11,10 +11,12 @@
 *
 */
 
+// test for merge without brain
 // this test git
 // this test branch
 // test new brach for master
 // new branch iss54
+// and create new brach iss53
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
