@@ -11,8 +11,6 @@
 *
 */
 
-// test for merge without brain
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
