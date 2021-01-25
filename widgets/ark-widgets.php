@@ -10,11 +10,11 @@ class Ark_News_Elementor_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_icon() {
-		return 'fa fa-code';
+		return 'fas fa-newspaper';
 	}
 
 	public function get_categories() {
-		return [ 'ark' ];
+		return [ 'arkCategory' ];
   }
   
   protected function _register_controls() {
@@ -26,13 +26,19 @@ class Ark_News_Elementor_Widget extends \Elementor\Widget_Base {
       ]
     );
 
+    $types_post = $this->get_all_type_post();
+    $options = [];
+    foreach ($types_post as $type_post) {
+      $options[$type_post] = $type_post;
+    }
+
     $this->add_control(
-      'url',
+      'post_type',
       [
-        'label' => __( 'URL to embed', 'ark-elementor' ),
-        'type' => \Elementor\Controls_Manager::TEXT,
-        'input_type' => 'url',
+        'label' => __( 'Тип записи', 'ark-elementor' ),
+        'type' => \Elementor\Controls_Manager::SELECT,
         'placeholder' => __( 'https://your-link.com', 'ark-elementor' ),
+        'options' => $options
       ]
     );
 
@@ -43,13 +49,20 @@ class Ark_News_Elementor_Widget extends \Elementor\Widget_Base {
 
     $settings = $this->get_settings_for_display();
 
-    $html = wp_oembed_get( $settings['url'] );
+    // $html = wp_oembed_get( $settings['url'] );
 
     echo '<div class="oembed-elementor-widget">';
 
-    echo ( $html ) ? $html : $settings['url'];
+    echo  $settings['post_type'];
 
     echo '</div>';
 
+  }
+
+  private function get_all_type_post() {
+    $args = [
+      'public' => true
+    ];
+    return get_post_types($args);
   }
 }

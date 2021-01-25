@@ -15,6 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+
+
+
 final class Ark_Elementor_Extension {
 
 	// const VERSION;
@@ -56,7 +59,7 @@ final class Ark_Elementor_Extension {
 	public function init() {
     $this->i18n();
 
-    add_action( 'elementor/elements/categories_registered', 'add_elementor_widget_categories' );
+    add_action( 'elementor/elements/categories_registered', [ $this, 'add_elementor_widget_categories' ] );
 
     $this->includes();
     add_action( 'elementor/widgets/widgets_registered', [ $this, 'register_widgets' ] );
@@ -65,6 +68,22 @@ final class Ark_Elementor_Extension {
     add_action( 'elementor/frontend/after_enqueue_styles', [ $this, 'widget_styles' ] );
     add_action( 'elementor/frontend/after_register_scripts', [ $this, 'widget_scripts' ] );
 
+  }
+
+  public function add_elementor_widget_categories($elements_manager) {
+	  $elements_manager->add_category(
+		  'arkCategory',
+		  [
+			  'title' => __( 'ark', 'ark-elementor' ),
+			  'icon' => 'fa fa-plug',
+			  'active' => true,
+		  ]
+	  );
+	// $elements_manager->categories['arkCategory'] = [
+	// 	'title' => __( 'ark', 'ark-elementor' ),
+	// 	'icon' => 'fa fa-plug',
+	// // 		  'active' => true,
+	// ];
   }
 
   public function includes() {
@@ -85,15 +104,7 @@ final class Ark_Elementor_Extension {
 		// wp_register_style( 'widget-2', plugins_url( 'css/widget-2.css', __FILE__ ) );
   }
 
-  public function add_elementor_widget_categories($elements_manager) {
-    $elements_manager->add_category(
-      'arkCategory',
-      [
-        'title' => __( 'ark', 'ark-elementor' ),
-        'icon' => 'fab fa-accessible-icon',
-      ]
-    );
-  }
+
 
   public function admin_notice_missing_main_plugin() {
 
