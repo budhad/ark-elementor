@@ -4,12 +4,14 @@ namespace ArkElementor\Widgets\Products;
 
 use Elementor\Controls_Manager;
 use Elementor\Widget_Base;
+use ArkMagazine\ArkMagazine;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 class Ark_Products_Elementor_Widget extends Widget_Base {
+
   public function get_name() {
 		return 'ark-products';
 	}
@@ -113,6 +115,7 @@ class Ark_Products_Elementor_Widget extends Widget_Base {
 
     $settings = $this->get_settings_for_display();
 
+
     // $this->add_inline_editing_attributes( 'view_type', 'basic' );
     // $this->add_inline_editing_attributes( 'content', 'advanced' );
 
@@ -121,14 +124,24 @@ class Ark_Products_Elementor_Widget extends Widget_Base {
     ?>
 
       <h2><?php  ?></h2>
-      <div <?php echo $this->get_render_attribute_string( 'content' ); ?>><?php echo $settings['content']; ?></div>
+      <div <?php //echo $this->get_render_attribute_string( 'content' ); ?>><?php //echo $settings['content']; ?></div>
 		
     <?php
     // $html = wp_oembed_get( $settings['url'] );
 
     echo '<div class="oembed-elementor-widget">';
 
-    echo  $settings['view_type'];
+    $posts = ArkMagazine::$instance->product->get_wp_products();
+
+    // var_dump($posts);
+
+    $html_cards = ProductCard::render_products($posts);
+
+    foreach ($html_cards as $card) {
+      echo $card;
+    }
+
+    // echo  $settings['view_type'];
 
     echo '</div>';
 
@@ -143,10 +156,4 @@ class Ark_Products_Elementor_Widget extends Widget_Base {
 		<?php
 	}
 
-  private function get_all_type_post() {
-    $args = [
-      'public' => true
-    ];
-    return get_post_types($args);
-  }
 }

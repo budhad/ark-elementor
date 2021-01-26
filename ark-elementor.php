@@ -19,6 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+define( 'ARK_ELEMENTOR_BASENAME', plugin_basename(__FILE__) );
+define( 'ARK_ELEMENTOR_DIR_PATH', plugin_dir_path(__FILE__) );
+define( 'ARK_ELEMENTOR_DIR_URL', plugin_dir_url(__FILE__) );
+
 final class Ark_Elementor_Extension {
 
 	// const VERSION;
@@ -84,8 +88,9 @@ final class Ark_Elementor_Extension {
 
   public function includes() {
     // require_once( __DIR__ . '/skins/skin-products-card.php' );
-    require_once( __DIR__ . '/widgets/news.php' );
-    require_once( __DIR__ . '/widgets/products/products.php' );
+    require_once( ARK_ELEMENTOR_DIR_PATH . '/widgets/news.php' );
+    require_once( ARK_ELEMENTOR_DIR_PATH . '/widgets/products/products.php' );
+    require_once( ARK_ELEMENTOR_DIR_PATH . '/widgets/products/product-card.php' );
   }
 
   public function register_widgets() {
