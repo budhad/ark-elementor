@@ -11,12 +11,13 @@
 *
 */
 
+namespace ArkElementor;
+
+use ArkElementor\Widgets\Products\Ark_Products_Elementor_Widget;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-
-
-
 
 final class Ark_Elementor_Extension {
 
@@ -79,20 +80,17 @@ final class Ark_Elementor_Extension {
 			  'active' => true,
 		  ]
 	  );
-	// $elements_manager->categories['arkCategory'] = [
-	// 	'title' => __( 'ark', 'ark-elementor' ),
-	// 	'icon' => 'fa fa-plug',
-	// // 		  'active' => true,
-	// ];
   }
 
   public function includes() {
-    require_once( __DIR__ . '/widgets/ark-widgets.php' );
+    // require_once( __DIR__ . '/skins/skin-products-card.php' );
+    require_once( __DIR__ . '/widgets/news.php' );
+    require_once( __DIR__ . '/widgets/products/products.php' );
   }
 
   public function register_widgets() {
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Ark_News_Elementor_Widget() );
-		// \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Test_Widget2() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Ark_News_Elementor_Widget() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Ark_Products_Elementor_Widget() );
 	}
 
   public function widget_scripts() {
@@ -120,18 +118,6 @@ final class Ark_Elementor_Extension {
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
 
 	}
-
-  // public function init_widgets() {
-	// 	require_once( __DIR__ . '/widgets/ark-widget.php' );
-	// 	// Register widget
-	// 	\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Elementor_Test_Widget() );
-	// }
-
-	// public function init_controls() {
-	// 	// Include Control files
-	// 	require_once( __DIR__ . '/controls/ark-control.php' );
-	// 	// Register control
-	// 	\Elementor\Plugin::$instance->controls_manager->register_control( 'control-type-', new \Test_Control() );
-	// }
 }
+
 Ark_Elementor_Extension::instance();
